@@ -1,49 +1,39 @@
+#include<math.h>
 #include<stdio.h>
-int main(void)
+#define _CRT_SECURE_NO_WARNINGS
+
+double Standard_Deviation(double * ptr, int len)
 {
-	int arr1[6] = { 1, 2, 3, 4, 5, 6};
-	int arr2[6] = {7, 8, 9, 10, 11, 12};
-	int* ptr1 = arr1;
-	int* ptr2 = arr2;
-	int i, temp;
-
-	printf("arr1: ");
-	for (i = 0; i < 6; i++)
+	int i;
+	double sum = 0;
+	double u = 0;
+	for (i = 0; i < len; i++)
 	{
-		printf("%d ", arr1[i]);
-	}
-	printf("\n");
-	printf("arr2: ");
-	for (i = 0; i < 6; i++)
-	{
-		printf("%d ", arr2[i]);
-	}
-	printf("\n");
-
-	for (i = 0; i < 6; i++)
-	{
-		temp = *ptr1;
-		*ptr1 = *ptr2;
-		*ptr2 = temp;
-		ptr1++;
-		ptr2++;
+		sum = sum + ptr[i];
 	}
 
-	printf("after swap\n");
-	printf("arr1: ");
-	for (i = 0; i < 6; i++)
+	u = sum / ptr[4];
+	sum = 0;
+
+	for (i = 0; i < len; i++)
 	{
-		printf("%d ", arr1[i]);
-	}
-	printf("\n");
-	printf("arr2: ");
-	for (i = 0; i < 6; i++)
-	{
-		printf("%d ", arr2[i]);
+		sum = sum + pow(ptr[i] - u, 2);
 	}
 
+	return sqrt(sum / ptr[4]);
+}
 
+
+
+double main(void)
+{
+	double num[5];
+	double result;
+
+	printf("Enter 5 real numbers: ");
+	scanf_s("%lf %lf %lf %lf %lf", &num[0], &num[1], &num[2], &num[3], &num[4]);
+	result = Standard_Deviation(num, sizeof(num) / sizeof(double));
+	printf("Standard Deviation = %.3lf", result);
 
 	return 0;
-
 }
